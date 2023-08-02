@@ -1,0 +1,130 @@
+openapi: 3.0.2
+servers: [
+  {
+  "url": "http://127.0.0.1:8000/",
+  "description": "Development server"
+  }
+]
+info:
+  title: 'VegRecipe'
+  version: '1.0.0'
+paths:
+  /recipes/:
+    get:
+      operationId: listRecipes
+      description: 'List of recipes'
+      parameters: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Recipe'
+          description: ''
+      tags:
+      - recipes
+    post:
+      operationId: createRecipe
+      description: ''
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Recipe'
+          application/x-www-form-urlencoded:
+            schema: {}
+          multipart/form-data:
+            schema: {}
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Recipe'
+          description: ''
+      tags:
+      - recipes
+  /categories/:
+    get:
+      operationId: listCategorys
+      description: ''
+      parameters: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Category'
+          description: ''
+      tags:
+      - categories
+    post:
+      operationId: createCategory
+      description: ''
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Category'
+          application/x-www-form-urlencoded:
+            schema: {}
+          multipart/form-data:
+            schema: {}
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CategoryResponse'
+          description: ''
+      tags:
+      - categories
+components:
+  schemas:
+    Category:
+      type: object
+      required:
+        - name
+      properties:
+        name:
+          type: string
+          example: fruit dishes
+        image:
+          type: string
+          format: url
+          example: 'http://127.0.0.1:8000/media/uploads/2023/07/31/default.png'
+        description:
+          type: string
+          example: Dishes containing fruits
+    CategoryResponse:
+      type: object
+      properties:
+        name:
+          type: string
+          example: fruit dishes
+    Recipe:
+      type: object
+      required:
+        - title
+        - text
+        - categories
+      properties:
+        title:
+          type: string
+          example: Fruit Salad
+        text:
+          type: string
+          example: Make a fruit salad
+        image:
+          type: string
+          format: url
+          example: 'http://127.0.0.1:8000/media/uploads/2023/07/31/default.png'
+        categories:
+          type: array
+          example: [{"name": "salads"}]
